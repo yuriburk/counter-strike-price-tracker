@@ -22,6 +22,7 @@ const items = [
     "Desert Eagle | Urban DDPAT (Factory New)",
     "Sealed Graffiti | Blood Boiler",
     "Music Kit | Daniel Sadowski, Crimson Assault",
+    "Bloody Darryl The Strapped | The Professionals"
 ];
 
 let community = new SteamCommunity();

@@ -14,15 +14,14 @@ if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir);
 }
 
+// TODO: Replace this with real data. Hardcode for testing.
 const items = [
-    "StatTrak™ UMP-45 | Exposure (Factory New)",
-    "MP9 | Hot Rod (Minimal Wear)",
-    "Sticker | KrizzeN | Boston 2018",
-    "Sealed Graffiti | Eco (Battle Green)",
-    "★ Huntsman Knife | Gamma Doppler (Factory New)",
-    "G3SG1 | Dream Glade (Minimal Wear)",
-    "Souvenir M4A4 | Converter (Field-Tested)",
-    "Music Kit | Denzel Curry, ULTIMATE",
+    "Sticker | Natus Vincere | Copenhagen 2024",
+    "Sticker | Natus Vincere (Glitter) | Copenhagen 2024",
+    "Sticker | Natus Vincere (Holo) | Copenhagen 2024",
+    "Desert Eagle | Urban DDPAT (Factory New)",
+    "Sealed Graffiti | Blood Boiler",
+    "Music Kit | Daniel Sadowski, Crimson Assault",
 ];
 
 let community = new SteamCommunity();

@@ -14,17 +14,6 @@ if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir);
 }
 
-// TODO: Replace this with real data. Hardcode for testing.
-const items = [
-    "Sticker | Natus Vincere | Copenhagen 2024",
-    "Sticker | Natus Vincere (Glitter) | Copenhagen 2024",
-    "Sticker | Natus Vincere (Holo) | Copenhagen 2024",
-    "Desert Eagle | Urban DDPAT (Factory New)",
-    "Sealed Graffiti | Blood Boiler",
-    "Music Kit | Daniel Sadowski, Crimson Assault",
-    "Bloody Darryl The Strapped | The Professionals"
-];
-
 let community = new SteamCommunity();
 
 console.log("Logging into Steam community....");
@@ -42,12 +31,60 @@ community.login(
         }
 
         try {
+            console.log("Loading items...");
+            const items = await getAllItemNames();
+            console.log(`Processing ${items.length} items.`);
             await processItems(items);
         } catch (error) {
             console.error("An error occurred while processing items:", error);
         }
     }
 );
+
+async function getAllItemNames() {
+    return Promise.all([
+        fetch(
+            "https://raw.githubusercontent.com/ByMykel/CSGO-API/main/public/api/en/skins_not_grouped.json"
+        )
+            .then((res) => res.json())
+            .then((res) => res.map((item) => item.market_hash_name)),
+        fetch(
+            "https://raw.githubusercontent.com/ByMykel/CSGO-API/main/public/api/en/stickers.json"
+        )
+            .then((res) => res.json())
+            .then((res) => res.map((item) => item.market_hash_name)),
+        fetch(
+            "https://raw.githubusercontent.com/ByMykel/CSGO-API/main/public/api/en/crates.json"
+        )
+            .then((res) => res.json())
+            .then((res) => res.map((item) => item.market_hash_name)),
+        fetch(
+            "https://raw.githubusercontent.com/ByMykel/CSGO-API/main/public/api/en/agents.json"
+        )
+            .then((res) => res.json())
+            .then((res) => res.map((item) => item.market_hash_name)),
+        fetch(
+            "https://raw.githubusercontent.com/ByMykel/CSGO-API/main/public/api/en/keys.json"
+        )
+            .then((res) => res.json())
+            .then((res) => res.map((item) => item.market_hash_name)),
+        fetch(
+            "https://raw.githubusercontent.com/ByMykel/CSGO-API/main/public/api/en/patches.json"
+        )
+            .then((res) => res.json())
+            .then((res) => res.map((item) => item.market_hash_name)),
+        fetch(
+            "https://raw.githubusercontent.com/ByMykel/CSGO-API/main/public/api/en/graffiti.json"
+        )
+            .then((res) => res.json())
+            .then((res) => res.map((item) => item.market_hash_name)),
+        fetch(
+            "https://raw.githubusercontent.com/ByMykel/CSGO-API/main/public/api/en/music_kits.json"
+        )
+            .then((res) => res.json())
+            .then((res) => res.map((item) => item.market_hash_name)),
+    ]).then((results) => results.flat());
+}
 
 async function fetchPrice(name) {
     return new Promise((resolve, reject) => {

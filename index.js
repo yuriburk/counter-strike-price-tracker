@@ -2,6 +2,7 @@ const SteamCommunity = require("steamcommunity");
 const fs = require("fs");
 const sha1 = require("sha1");
 const dir = `./static`;
+const dirPricehistory = `./static/pricehistory`;
 
 if (process.argv.length != 4) {
     console.error(
@@ -12,6 +13,10 @@ if (process.argv.length != 4) {
 
 if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir);
+}
+
+if (!fs.existsSync(dirPricehistory)) {
+    fs.mkdirSync(dirPricehistory);
 }
 
 let community = new SteamCommunity();
@@ -121,7 +126,7 @@ async function processBatch(batch) {
                 if (prices.length) {
                     const hashedName = sha1(name);
                     return fs.writeFile(
-                        `${dir}/${hashedName}.json`,
+                        `${dir}/pricehistory/${hashedName}.json`,
                         JSON.stringify(prices, null, 4),
                         (err) => err && console.error(err)
                     );

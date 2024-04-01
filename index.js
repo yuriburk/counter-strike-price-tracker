@@ -1,5 +1,6 @@
 const SteamCommunity = require("steamcommunity");
 const fs = require("fs");
+const sha1 = require("sha1");
 const dir = `./static`;
 
 if (process.argv.length != 4) {
@@ -81,8 +82,9 @@ async function processBatch(batch) {
         fetchPrice(name)
             .then((prices) => {
                 if (prices.length) {
+                    const hashedName = sha1(name);
                     return fs.writeFile(
-                        `${dir}/${encodeURI(name)}.json`,
+                        `${dir}/${hashedName}.json`,
                         JSON.stringify(prices, null, 4),
                         (err) => err && console.error(err)
                     );
